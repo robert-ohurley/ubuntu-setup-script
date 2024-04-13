@@ -5,17 +5,17 @@ if [[ $EUID -ne 0 ]]; then
    	exit 1
 fi
 
-setHomeDir() {
-	echo "Enter home dir e.g. /home/rojet "
-	read homedir
-	export HOME=$homedir
+setUser() {
+	echo "Enter user: "
+	read name
+	export HOME=/home/$name
 }
 setHomeDir
 
 
 makeDirIfNotExist() {
-	 if [[ ! -d $1 ]]; then
-	 	mkdir $1
+	 if [ ! -d $1 ]; then
+	 	sudo -u $name mkdir $1
 	 fi
  }
 
