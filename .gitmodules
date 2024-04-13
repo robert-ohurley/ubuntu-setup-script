@@ -1,3 +1,3 @@
 [submodule "dotfiles"]
 	path = dotfiles
-	url = git@github.com:robert-ohurley/dotfiles.git
+	url = https://github.com/robert-ohurley/dotfiles.git
