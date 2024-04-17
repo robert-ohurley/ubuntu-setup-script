@@ -1,16 +1,11 @@
 #!/bin/sh
 
-if [[ $EUID -ne 0 ]]; then
-   	echo "This script must be run as root" 
-   	exit 1
-fi
-
 setUser() {
 	echo "Enter user: "
 	read name
 	export HOME=/home/$name
 }
-setHomeDir
+setUser
 
 
 makeDirIfNotExist() {
@@ -55,6 +50,8 @@ echo "Installing Packages"
 	sudo apt-get install unzip -y
 	sudo apt install gnome-tweaks -y
 	sudo snap install discord
+	sudo apt install neovim
+	sudo apt-get install ripgrep make gcc unzip
 	
 echo "Installing fzf"
 	git clone --depth 1 https://github.com/junegunn/fzf.git $XDG_DATA_HOME/.fzf
@@ -74,10 +71,17 @@ echo "Setting up Zsh"
 	sudo chmod 666 /etc/zsh/zshenv
 	echo "export ZDOTDIR="$XDG_CONFIG_HOME"/zsh" >> /etc/zsh/zshenv
 	makeDirIfNotExist $XDG_CONFIG_HOME/zsh
+	
+	#move files / symlink
 	mv $HOME/.oh-my-zsh $XDG_CONFIG_HOME/.oh-my-zsh
 	rm -rf $XDG_CONFIG_HOME/.oh-my-zsh/custom 
 	ln -s -f $HOME/dotfiles/zsh/.zshrc $XDG_CONFIG_HOME/zsh/.zshrc
 	ln -s -f ~/dotfiles/zsh/custom $XDG_CONFIG_HOME/.oh-my-zsh/custom
+	
+	#plugins
+	makeDirIfNotExist -u $user $XDG_CONFIG_HOME/.oh-my-zsh/custom/plugins
+	git clone https://github.com/zsh-users/zsh-autosuggestions $XDG_CONFIG_HOME/.oh-my-zsh/custom/plugins/zsh-autosuggestions
+
 
 echo "Installing Node Version Manager and Node v20.12.1"
 	curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.7/install.sh | bash
@@ -89,25 +93,21 @@ echo "Installing Node Version Manager and Node v20.12.1"
 	ln -s -f $HOME/dotfiles/npm/npmrc $XDG_CONFIG_HOME/npm/npmrc
 
 echo "Setting up Nvim"
-	cd $HOME/Downloads	
-	curl -LO https://github.com/neovim/neovim/releases/latest/download/nvim-linux64.tar.gz
-	sudo rm -rf /opt/nvim
-	sudo tar -C /opt -xzf nvim-linux64.tar.gz
-	#add symlinking and set up kickstart here
+	#symlinking kickstart
+	ln -s -f $HOME/dotfiles/nvim $XDG_CONFIG_HOME/nvim
 	
 echo "Setting up tmux"
-	git clone https://github.com/tmux-plugins/tpm $XDG_CONFIG_HOME/.tmux/plugins/tpm
 	ln -s -f $HOME/dotfiles/tmux $XDG_CONFIG_HOME/tmux
 	git clone https://github.com/tmux-plugins/tpm $XDG_CONFIG_HOME/tmux/plugins/tpm
 	tmux source $XDG_CONFIG_HOME/tmux/tmux.conf
 
 		
 echo "Setting up GithubCLI and authorizing" 
-	sudo mkdir -p -m 755 /etc/apt/keyrings && wget -qO- https://cli.github.com/packages/githubcli-archive-keyring.gpg | sudo tee /etc/apt/keyrings/githubcli-archive-keyring.gpg > /dev/null \
-&& sudo chmod go+r /etc/apt/keyrings/githubcli-archive-keyring.gpg \
-&& echo "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/githubcli-archive-keyring.gpg] https://cli.github.com/packages stable main" | sudo tee /etc/apt/sources.list.d/github-cli.list > /dev/null \
-&& sudo apt update \
-&& sudo apt install gh -y
+	sudo mkdir -p -m 755 /etc/apt/keyrings && wget -qO- https://cli.github.com/packages/githubcli-archive-keyring.gpg | sudo tee /etc/apt/keyrings/githubcli-archive-keyring.gpg > /dev/null 
+	sudo chmod go+r /etc/apt/keyrings/githubcli-archive-keyring.gpg 
+	echo "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/githubcli-archive-keyring.gpg] https://cli.github.com/packages stable main" | sudo tee /etc/apt/sources.list.d/github-cli.list > /dev/null 
+	sudo apt update 
+	sudo apt install gh -y
 	sudo apt update
 	sudo apt install gh
 	gh auth login
@@ -134,7 +134,7 @@ echo "Symlink remaining dotfiles"
 echo "Setting up Docker"
 	# Add Docker's official GPG key:
 	sudo apt-get update
-	sudo apt-get install ca-certificates curl
+	sudo apt-get install ca-certificates curl -y
 	sudo install -m 0755 -d /etc/apt/keyrings
 	sudo curl -fsSL https://download.docker.com/linux/ubuntu/gpg -o /etc/apt/keyrings/docker.asc
 	sudo chmod a+r /etc/apt/keyrings/docker.asc
@@ -147,7 +147,7 @@ echo "Setting up Docker"
 	sudo apt-get update
 	sudo chmod 666 /var/run/docker.sock
 	
- 	sudo apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
+ 	sudo apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin -y
 
 echo "Setting up Browser"
 	sudo curl -fsSLo /usr/share/keyrings/brave-browser-archive-keyring.gpg https://brave-browser-apt-release.s3.brave.com/brave-browser-archive-keyring.gpg
@@ -155,12 +155,8 @@ echo "Setting up Browser"
 	sudo apt update
 	sudo apt install brave-browser -y
 	
-echo "Tidy up"
-	sudo touch /etc/sudoers.d/admin_flag
-	sudo chmod 666 /etc/sudoers.d/admin_flag
-	echo "Defaults \!admin_flag" >> /etc/sudoers.d/admin_flag
-	pkexec chmod 0755 /etc/sudoers.d/admin_flag
 
 echo "Remember to clean up files"
+echo "Remember to change terminal font to JetBrains Mono nerd font"
 echo "Remember to install tmux packages <prefix> + I"
 
