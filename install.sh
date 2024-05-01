@@ -159,4 +159,5 @@ echo "Setting up Browser"
 echo "Remember to clean up files"
 echo "Remember to change terminal font to JetBrains Mono nerd font"
 echo "Remember to install tmux packages <prefix> + I"
-
+echo "run sudo mysql"
+echo "run ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY 'root';
