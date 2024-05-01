@@ -50,7 +50,6 @@ echo "Installing Packages"
 	sudo apt-get install unzip -y
 	sudo apt install gnome-tweaks -y
 	sudo snap install discord
-	sudo apt install neovim
 	sudo apt-get install ripgrep make gcc unzip
 	
 echo "Installing fzf"
@@ -75,11 +74,13 @@ echo "Setting up Zsh"
 	#move files / symlink
 	mv $HOME/.oh-my-zsh $XDG_CONFIG_HOME/.oh-my-zsh
 	rm -rf $XDG_CONFIG_HOME/.oh-my-zsh/custom 
-	ln -s -f $HOME/dotfiles/zsh/.zshrc $XDG_CONFIG_HOME/zsh/.zshrc
+
+	#hardcoded for some reason
+	ln -s -f /home/rojetsavage/dotfiles/zsh/zshrc /home/rojetsavage/.config/zsh/.zshrc
 	ln -s -f ~/dotfiles/zsh/custom $XDG_CONFIG_HOME/.oh-my-zsh/custom
 	
 	#plugins
-	makeDirIfNotExist -u $user $XDG_CONFIG_HOME/.oh-my-zsh/custom/plugins
+	makeDirIfNotExist $XDG_CONFIG_HOME/.oh-my-zsh/custom/plugins
 	git clone https://github.com/zsh-users/zsh-autosuggestions $XDG_CONFIG_HOME/.oh-my-zsh/custom/plugins/zsh-autosuggestions
 
 
@@ -89,11 +90,14 @@ echo "Installing Node Version Manager and Node v20.12.1"
 	[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  #This loads nvm
 	[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  #nvm bash_completion
 	nvm install 20
-	mkDirIfNotExist $XDG_CONFIG_HOME/npm
+	makeDirIfNotExist $XDG_CONFIG_HOME/npm
 	ln -s -f $HOME/dotfiles/npm/npmrc $XDG_CONFIG_HOME/npm/npmrc
 
 echo "Setting up Nvim"
-	#symlinking kickstart
+	curl -LO https://github.com/neovim/neovim/releases/latest/download/nvim-linux64.tar.gz
+	sudo rm -rf /opt/nvim
+	sudo tar -C /opt -xzf nvim-linux64.tar.gz
+	#symlinking config
 	ln -s -f $HOME/dotfiles/nvim $XDG_CONFIG_HOME/nvim
 	
 echo "Setting up tmux"
