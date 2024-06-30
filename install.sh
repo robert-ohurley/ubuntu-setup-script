@@ -30,7 +30,8 @@ export NVM_DIR="$XDG_DATA_HOME/nvm"
 export HISTFILE="$XDG_STATE_HOME"/zsh/history 
 export NPM_CONFIG_USERCONFIG="$XDG_CONFIG_HOME"/npm/npmrc
 
-#Create necessary directories
+
+#Create directories
 makeDirIfNotExist $HOME/Projects
 makeDirIfNotExist $HOME/Programming
 makeDirIfNotExist $HOME/Uni
@@ -55,12 +56,12 @@ sudo apt install git neovim tmux vlc curl mysql-server gnome-tweaks stow -y
 sudo apt-get install ripgrep make gcc unzip eza unzip fzf #add -y to this
 sudo snap install discord mysql-workbench-community btop
 curl -sS https://starship.rs/install.sh | sh
-#TODO: install btop
 sudo apt-get update && sudo apt-get upgrade -y
 
 
 #Clone dotfiles
 git clone https://github.com/robert-ohurley/dotfiles.git $HOME/dotfiles
+
 
 #Zshell
 chsh -s $(which zsh)
@@ -71,7 +72,7 @@ echo "if [ \"${ZSH_VERSION:-unset}\" = \"unset\" ] ; then
 fi" >> $HOME/.bashrc
 sudo chmod 666 /etc/zsh/zshenv
 echo "export ZDOTDIR="$XDG_CONFIG_HOME"/zsh" >> /etc/zsh/zshenv
-	
+
 
 #Alacritty
 #install normally/move .cargo
@@ -151,6 +152,7 @@ sudo apt install brave-browser -y
 cd $HOME/dotfiles/
 stow -v -t $HOME/.config config
 
+
 #Additional configuration
 curl -LO --output-dir ~/.config/alacritty https://github.com/catppuccin/alacritty/raw/main/catppuccin-mocha.toml
 
@@ -158,6 +160,7 @@ curl -LO --output-dir ~/.config/alacritty https://github.com/catppuccin/alacritt
 #Cleanup
 rm $HOME/Downloads/JetBrainsMono.zip
 rm $HOME/Downloads/go1.22.3.linux-amd64.tar.gz
+
 
 #Notes to self. 
 echo "Remember to clean up files"
