@@ -93,12 +93,9 @@ sudo desktop-file-install extra/linux/Alacritty.desktop
 sudo update-desktop-database
 
 
-#Installing Node Version Manager and Node v20
-curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.7/install.sh | bash
-export NVM_DIR="$HOME/.local/share/nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  #This loads nvm
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  #nvm bash_completion
-nvm install 20
+#So happy I can finally get rid of NVM, use FNM instead and maybe alias it to nvm?
+curl -fsSL https://fnm.vercel.app/install | bash
+fnm install 22.5.1
 
 
 #TPM
