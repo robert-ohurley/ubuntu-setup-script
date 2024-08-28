@@ -1,4 +1,4 @@
-#!/bin/sh
+>#!/bin/sh
 
 
 setHomePath() {
@@ -52,8 +52,8 @@ sudo apt-get update && sudo apt-get upgrade -y
 
 
 #Install Packages
-sudo apt install git neovim tmux vlc curl mysql-server gnome-tweaks stow -y
-sudo apt-get install ripgrep make gcc unzip eza unzip fzf #add -y to this
+sudo apt install git neovim tmux vlc curl exa mysql-server gnome-tweaks stow -y
+sudo apt-get install ripgrep make gcc unzip unzip fzf 
 sudo snap install discord mysql-workbench-community btop
 curl -sS https://starship.rs/install.sh | sh
 sudo apt-get update && sudo apt-get upgrade -y
@@ -170,4 +170,4 @@ echo "Remember to install tmux packages <prefix> + I"
 
 #Configure MySQL
 #sudo mysql
-#Run -> ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY 'root';
+#Run -> ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY 'root';>>>>> Stashed changes
