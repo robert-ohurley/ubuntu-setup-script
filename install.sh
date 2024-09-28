@@ -52,7 +52,7 @@ sudo apt-get update && sudo apt-get upgrade -y
 
 
 #Install Packages
-sudo apt install git neovim tmux vlc curl exa mysql-server gnome-tweaks stow -y
+sudo apt install git neovim tmux vlc curl eza mysql-server gnome-tweaks stow -y
 sudo apt-get install ripgrep make gcc unzip unzip fzf 
 sudo snap install discord mysql-workbench-community btop
 curl -sS https://starship.rs/install.sh | sh
