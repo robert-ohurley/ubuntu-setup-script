@@ -1,4 +1,4 @@
->#!/bin/sh
+#!/bin/sh
 
 
 setHomePath() {
@@ -76,7 +76,8 @@ echo "export ZDOTDIR="$XDG_CONFIG_HOME"/zsh" >> /etc/zsh/zshenv
 
 #Alacritty
 #install normally/move .cargo
-git clone https://github.com/alacritty/alacritty.git $HOME/Downloads
+cd $HOME/Downloads
+git clone https://github.com/alacritty/alacritty.git
 cd $HOME/Downloads/alacritty
 curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
 export PATH=$HOME/.cargo/bin:$PATH
