@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 source ./utils.sh
 
@@ -32,11 +32,13 @@ makeDirIfNotExist $XDG_CONFIG_HOME/git
 makeDirIfNotExist $XDG_CONFIG_HOME/zsh
 makeDirIfNotExist $XDG_CONFIG_HOME/npm
 makeDirIfNotExist $XDG_CONFIG_HOME/alacritty
+continue?
+
 
 
 #Update
 sudo apt-get update && sudo apt-get upgrade -y
-
+continue?
 
 #Install Tools/Utilities
 sudo apt install git neovim tmux vlc curl eza mysql-server gnome-tweaks stow bear jq  -y
@@ -71,7 +73,6 @@ continue?
 
 
 #Alacritty
-#install normally/move .cargo
 cd $HOME/Downloads
 git clone https://github.com/alacritty/alacritty.git
 cd $HOME/Downloads/alacritty
@@ -83,7 +84,6 @@ rustup update stable
 sudo apt install cmake pkg-config libfreetype6-dev libfontconfig1-dev libxcb-xfixes0-dev libxkbcommon-dev python3
 cargo build --release
 sudo tic -xe alacritty,alacritty-direct extra/alacritty.info
-cd ..
 sudo cp target/release/alacritty /usr/local/bin # or anywhere else in $PATH
 sudo cp extra/logo/alacritty-term.svg /usr/share/pixmaps/Alacritty.svg
 sudo desktop-file-install extra/linux/Alacritty.desktop
