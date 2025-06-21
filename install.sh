@@ -43,10 +43,20 @@ continue?
 #Install Tools/Utilities
 sudo apt install git neovim tmux vlc curl eza mysql-server gnome-tweaks stow bear jq  -y
 sudo apt-get install ripgrep make gcc unzip unzip fzf
-sudo snap install discord mysql-workbench-community btop
 curl -sS https://starship.rs/install.sh | sh
 sudo apt-get update && sudo apt-get upgrade -y
 continue?
+
+sudo snap install btop
+
+#yazi
+apt install ffmpeg 7zip jq poppler-utils fd-find ripgrep fzf zoxide imagemagick
+curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+rustup update
+cargo install --locked yazi-fm yazi-cli
+
+
+
 
 #Install misc deps
 	#Bear
@@ -59,6 +69,10 @@ apt-get install libfmt-dev libspdlog-dev nlohmann-json3-dev \
 git clone https://github.com/robert-ohurley/dotfiles.git $HOME/dotfiles
 continue?
 
+# Ruby
+sudo apt-get install ruby-full
+
+sudo apt instal sshfs
 
 #Zshell
 chsh -s $(which zsh)
@@ -99,15 +113,6 @@ continue?
 
 #TPM
 git clone https://github.com/tmux-plugins/tpm $XDG_CONFIG_HOME/tmux/plugins/tpm
-continue?
-
-
-#Set up and authorize githubCLI
-sudo mkdir -p -m 755 /etc/apt/keyrings && wget -qO- https://cli.github.com/packages/githubcli-archive-keyring.gpg | sudo tee /etc/apt/keyrings/githubcli-archive-keyring.gpg > /dev/null
-sudo chmod go+r /etc/apt/keyrings/githubcli-archive-keyring.gpg
-echo "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/githubcli-archive-keyring.gpg] https://cli.github.com/packages stable main" | sudo tee /etc/apt/sources.list.d/github-cli.list > /dev/null
-sudo apt update
-sudo apt install gh -y
 continue?
 
 
